@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://clgnypp06c1qm"]
+
+[ext_resource type="Script" path="res://scripts/ui/menu/main_menu.gd" id="1_w7aue"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 490.0
+offset_top = 143.0
+offset_right = 643.0
+offset_bottom = 280.0
+script = ExtResource("1_w7aue")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Snake & Ladders"
+
+[node name="HostButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 62.0
+offset_right = 107.0
+offset_bottom = 93.0
+text = "Host lobby"
+
+[node name="JoinButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 139.0
+offset_right = 107.0
+offset_bottom = 170.0
+text = "Join Lobby"
+
+[node name="offlineButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 220.0
+offset_right = 119.0
+offset_bottom = 251.0
+text = "Local Gamew"
+
+[node name="IpInput" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 140.0
+offset_right = 181.063
+offset_bottom = 171.0
+
+[node name="LobbyID" type="Label" parent="."]
+layout_mode = 0
+offset_left = 34.0
+offset_top = -88.0
+offset_right = 74.0
+offset_bottom = -65.0
+
+[connection signal="pressed" from="HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="offlineButton" to="." method="_on_offline_button_pressed"]

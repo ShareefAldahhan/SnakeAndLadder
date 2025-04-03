@@ -1,0 +1,164 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqfvmlfuab46t"]
+
+[ext_resource type="Script" path="res://scripts/ui/Lobby/lobby.gd" id="1_ksc20"]
+
+[sub_resource type="Theme" id="Theme_2fjav"]
+
+[node name="Lobby" type="Node2D"]
+script = ExtResource("1_ksc20")
+
+[node name="Create" type="Button" parent="."]
+offset_left = 24.0
+offset_top = 8.0
+offset_right = 224.0
+offset_bottom = 58.0
+theme = SubResource("Theme_2fjav")
+text = "Create"
+icon_alignment = 1
+
+[node name="LobbyText" type="TextEdit" parent="Create"]
+layout_mode = 0
+offset_left = 216.0
+offset_top = 16.0
+offset_right = 592.0
+offset_bottom = 48.0
+
+[node name="LobbySetName" type="Label" parent="Create"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = -8.0
+offset_right = 448.0
+offset_bottom = 15.0
+text = "Lobby Name"
+
+[node name="Join" type="Button" parent="."]
+offset_left = 24.0
+offset_top = 64.0
+offset_right = 224.0
+offset_bottom = 114.0
+theme = SubResource("Theme_2fjav")
+text = "Join"
+icon_alignment = 1
+
+[node name="Start" type="Button" parent="."]
+offset_left = 896.0
+offset_top = 64.0
+offset_right = 1096.0
+offset_bottom = 114.0
+theme = SubResource("Theme_2fjav")
+text = "Start Game
+"
+icon_alignment = 1
+
+[node name="SteamName" type="Label" parent="."]
+offset_left = 904.0
+offset_top = 16.0
+offset_right = 1096.0
+offset_bottom = 56.0
+text = "Steam Name"
+
+[node name="Players" type="Panel" parent="."]
+offset_left = 24.0
+offset_top = 128.0
+offset_right = 224.0
+offset_bottom = 558.0
+
+[node name="PlayerCount" type="Label" parent="Players"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 8.0
+offset_right = 144.0
+offset_bottom = 31.0
+text = "Players (0)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerList" type="RichTextLabel" parent="Players"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 200.0
+offset_bottom = 424.0
+
+[node name="Chat" type="Panel" parent="."]
+offset_left = 240.0
+offset_top = 128.0
+offset_right = 1104.0
+offset_bottom = 558.0
+
+[node name="ChatName" type="Label" parent="Chat"]
+layout_mode = 0
+offset_top = 8.0
+offset_right = 176.0
+offset_bottom = 31.0
+text = "Lobby Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Lobbyoutput" type="RichTextLabel" parent="Chat"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 48.0
+offset_right = 848.0
+offset_bottom = 408.0
+
+[node name="Leave" type="Button" parent="."]
+offset_left = 24.0
+offset_top = 576.0
+offset_right = 224.0
+offset_bottom = 626.0
+theme = SubResource("Theme_2fjav")
+text = "leave"
+icon_alignment = 1
+
+[node name="Message" type="Button" parent="."]
+offset_left = 240.0
+offset_top = 576.0
+offset_right = 440.0
+offset_bottom = 626.0
+theme = SubResource("Theme_2fjav")
+text = "Send Meesage"
+icon_alignment = 1
+
+[node name="ChatInput" type="TextEdit" parent="Message"]
+layout_mode = 0
+offset_left = 208.0
+offset_right = 864.0
+offset_bottom = 48.0
+
+[node name="PopupPanel" type="Panel" parent="."]
+visible = false
+offset_left = 280.0
+offset_top = 48.0
+offset_right = 920.0
+offset_bottom = 608.0
+
+[node name="Label" type="Label" parent="PopupPanel"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 32.0
+text = "Lobby List"
+
+[node name="Close" type="Button" parent="PopupPanel"]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 512.0
+offset_right = 632.0
+offset_bottom = 552.0
+text = "Close Lobby list"
+
+[node name="Scroll" type="ScrollContainer" parent="PopupPanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 624.0
+offset_bottom = 512.0
+
+[node name="VBox" type="VScrollBar" parent="PopupPanel/Scroll"]
+layout_mode = 2
+
+[connection signal="pressed" from="Create" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Leave" to="." method="_on_leave_pressed"]
+[connection signal="pressed" from="Message" to="." method="_on_message_pressed"]
+[connection signal="pressed" from="PopupPanel/Close" to="." method="_on_close_pressed"]

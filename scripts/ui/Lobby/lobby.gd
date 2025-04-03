@@ -127,16 +127,30 @@ func _on_Lobby_Created(connect, lobbyID):
 
 
 #you can use it in the future
-func _on_Lobby_Joined(lobbyID, permissions, locked, response):
-	# Set lobby ID
-	MultiplayerManager.LOBBY_ID = lobbyID
-	
-	# Get the lobby name
-	var name = Steam.getLobbyData(lobbyID, "name")
-	chat_name.text = str(name)
-	
-	# Get lobby members
-	get_Lobby_Members()
+func _on_Lobby_Joined(lobbyID, _permissions, _locked, response):
+	if response == 1:
+		MultiplayerManager.LOBBY_ID = lobbyID
+		
+		# Get lobby owner's Steam ID
+		var owner_id = Steam.getLobbyOwner(lobbyID)
+		
+		# Only connect via ENet if we're NOT the host
+		if owner_id != Steam.getSteamID():
+			# Get owner's IP through lobby data (recommended approach)
+			var owner_ip = Steam.getLobbyData(lobbyID, "host_ip")
+			
+			# Fallback if no IP in lobby data (for testing)
+			if owner_ip == "":
+				owner_ip = "127.0.0.1"  # Localhost fallback
+				printerr("No IP in lobby data, using localhost")
+			
+			# Connect via ENet
+			MultiplayerManager._join_enet(owner_ip)
+		
+		# Update UI
+		var lobby_name = Steam.getLobbyData(lobbyID, "name")
+		chat_name.text = str(lobby_name)
+		get_Lobby_Members()
 
 
 func _on_Lobby_Join_Requested(lobbyID, friendID):
@@ -212,8 +226,19 @@ func _on_join_pressed() -> void:
 	Steam.requestLobbyList()
 
 
-func _on_start_pressed() -> void:
-	pass # Replace with function body.
+func _on_start_pressed():
+	if multiplayer.is_server():
+		# Prepare player list from lobby members
+		var player_ids = []
+		for member in MultiplayerManager.LOBBY_MEMBERS:
+			player_ids.append(member['steam_id'])
+		
+		# Update GameManager for all players
+		GameManager.setup_game.rpc(player_ids)
+		
+		# Transition to game scene
+		Steam.setLobbyData(MultiplayerManager.LOBBY_ID, "game_started", "true")
+		MultiplayerManager.start_game.rpc()
 
 
 func _on_leave_pressed() -> void:
